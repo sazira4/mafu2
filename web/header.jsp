@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+  
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Training Management System</a>
+                <a class="navbar-brand" href="Home.jsp">Training Management System</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -282,7 +282,7 @@
                         <a href="/trMSystem/updateCourse.jsp"><i class="fa fa-table fa-fw"></i> Update Course</a>
                     </li>
                             <li>
-                        <a href="/trMSystem/verifyAttendance.jsp"><i class="fa fa-fw fa-table"></i> Verify Attendance</a>
+                        <a href="/trMSystem/verifyAttendance.jsp"><i class="fa fa-fw fa-ticket"></i> Verify Attendance</a>
                     </li>
                     <li>
                         <a href="/trMSystem/record.jsp"><i class="fa fa-fw fa-edit"></i> Record Attendance</a>
