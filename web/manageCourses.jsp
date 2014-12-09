@@ -49,7 +49,7 @@
          </div>
         <div class="row">
             <div class="col-lg-offset-10">
-                
+                <h5> <a href="addCourse.jsp">Add Courses</a></h5>
             </div>
         </div>
         
@@ -93,7 +93,7 @@
                  
 <%	
                  int i = 1;
-		if (rs.next() ) {
+		while(rs.next() ) {
 %>
 		   
                     <tr>
@@ -108,9 +108,8 @@
                    
 <%
 		i++;
-                } else {
-		   out.println("No records");
-		}
+                } 
+                
 %>
 <%
 	} catch (SQLException ex) {
