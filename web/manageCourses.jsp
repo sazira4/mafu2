@@ -53,6 +53,7 @@
             </div>
         </div>
         
+       
       
 
       
@@ -100,10 +101,10 @@
                         <td><%= i %></td>
 			<td><%= rs.getString("courseCode") %></td>
                         <td><%= rs.getString("courseName") %></td>
-                        <td><%= rs.getString("category") %></td>
 		        <td><%= rs.getString("venue") %></td>
                         <td><%= rs.getDate("startDate") %></td>
                         <td><%= rs.getDate("finalDate") %></td>
+                        <td><a href='editCourse.jsp?courseID=<%= rs.getString("idC") %>'>Edit</a></td>
 		   </tr>
                    
 <%
@@ -132,7 +133,7 @@
                 </div>
             </div>
     </div>
-     
+     </div>
 </body>
 </html>
 <%@include file ="footer.jsp" %>
