@@ -9,11 +9,10 @@
 
 <%      
         
-        //String username = request.getParameter("username");
+       // String username = request.getParameter("username");
         String username = (String)session.getAttribute("username");
-        String sqlQuery = "SELECT * FROM staff "
-               + "INNER JOIN course ON course.courseCode=staff.courseCode" + 
-                "WHERE username=" + username;
+        String sqlQuery = "SELECT * FROM penyertaan "+ 
+                "WHERE username='" + username+"'";
         
      //   String sqlQuery = "SELECT * FROM course "
        //         + "JOIN infostaff ON infostaff.staffID=course.staffID" + 
