@@ -54,6 +54,8 @@
                                     <tbody>
                                         <%      
         
+                                        
+                                        
         //String username = request.getParameter("username");
        String username = (String)session.getAttribute("username");
         String sqlQuery = "SELECT * FROM course "; 
