@@ -19,7 +19,7 @@
 <%
         String courseID = request.getParameter("courseID");
         String delete = "DELETE FROM course" +
-                           " WHERE idC = '" + courseID + "'";
+                           " WHERE courseCode = '" + courseID + "'";
         
         PreparedStatement ps = null;
         ps = con.prepareStatement(delete);

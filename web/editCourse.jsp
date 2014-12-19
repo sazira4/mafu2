@@ -6,7 +6,7 @@
 
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
-<%@ include file="header.jsp" %>
+<%@ include file="admin_header.jsp" %>
 <%@include file = "mysqlconnect.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,9 +48,9 @@
 <%
     String id = request.getParameter("courseID");
     if(id!=null){
-        int courseID = Integer.parseInt(id);
-        
-        rs = queryStmt.executeQuery("SELECT * FROM course WHERE idC="+courseID);
+                                                        
+       
+        rs = queryStmt.executeQuery("SELECT * FROM course WHERE courseCode='" + id + "'");
         if(rs!=null){
             rs.next();
         }
@@ -90,24 +90,42 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Course Code</label>
-                                        <input class="form-control"  name="courseCode" value="<%= rs.getString("courseCode")%>">
+                                        <input  class="form-control"  value="<%= rs.getString("courseCode")%>" readonly>
                                     </div>
-
+                                             
                                     <div class="form-group">
                                         <label>Venue</label>
                                         <input class="form-control" name="venue"  value="<%= rs.getString("venue")%>">
                                     </div>
                                     <div class="form-group">
                                         <label>Start Date</label>
-                                        <input type="text" id="departing" class="form-control" placeholder="Select Date" name="startDate">
+                                        <input type="text" id="departing" class="form-control" name="departing"  value="<%= rs.getString("startDate")%>">
                                     </div>
                                     <div class="form-group">
                                         <label>End Date</label>
-                                        <input type="text" id="returning" class="form-control" placeholder="Select Date" name="finalDate">
+                                        <input type="text" id="returning" class="form-control"  name="returning" value="<%= rs.getString("finalDate")%>">
+
+                                    </div>
+                                        
+                                     <div class="form-group">
+                                        <label>Category</label>
+                                        <input type="text" class="form-control" name="category" value="<%= rs.getString("category")%>">
+
+                                    </div>
+                                        
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <input type="text" class="form-control" name="startTime" value="<%= rs.getString("time")%>">
+
+                                    </div>
+                                        
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <input type="text" class="form-control" name="finalTime" value="<%= rs.getString("finalTime")%>">
 
                                     </div>
                                     <div class="col-lg-offset-9">
-                                        <input type="hidden" name="courseID" value="<%=rs.getString("idC")%>"/>
+                                        <input type="hidden" name="courseID" value="<%= rs.getString("courseCode")%>"/>
                                         <button type="submit" class="btn btn-default">Edit</button>
                                     </div>
                                 </form>

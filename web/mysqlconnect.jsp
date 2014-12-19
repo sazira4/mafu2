@@ -4,7 +4,7 @@
 <%!String driverName = "com.mysql.jdbc.Driver";%>
 <%!String url = "jdbc:mysql://localhost:3306/training";%> 
 <%!String user = "root";%>
-<%!String password = "root";%>
+<%!String password = "";%>
 
 <%  
         try{

@@ -1,7 +1,15 @@
 
-<%@ page import="java.sql.*" %>
-<%@ include file="admin_header.jsp" %>
+<%@page import="java.io.*" %>
+
+<%@page import="java.sql.*" %>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@include file = "admin_header.jsp" %>
 <%@include file = "mysqlconnect.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +21,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Manage Courses</title>
+    <title>Certificate</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,26 +44,20 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    
 
 </head>
 <body>
+    
+        
      <div id="wrapper">
     <div id="page-wrapper">
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Manage Courses</h1>
+                    <h1 class="page-header">Certificate</h1>
                 </div>
                 <!-- /.col-lg-12 -->
-         </div>
-        <div class="row">
-            <div class="col-lg-offset-10">
-                <h5> <a href="addCourses.jsp">Add Courses</a></h5>
             </div>
-        </div>
         
-       
       
 
       
@@ -63,22 +65,25 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Striped Rows
+                        </div>
                         
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
+                                <form class="form-horizontal" name="form1" method="get" action="certificate1.jsp">  
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Bil</th>
-                                            <th>Course Code</th>
-                                            <th>Course Name</th>
-                                            <th>Category</th>
-                                            <th>Venue</th>
+                                           
+                                            <th>No</th>
+                                            <th>Staff Id</th>
+                                            <th>Staff Name</th>
+                                            <th>IC Number</th>
                                             <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
+                                            <th>Final Date</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,62 +92,83 @@
 
 	try {
 		//Connection con = DriverManager.getConnection(url, user, password);
+		//Connection con = DriverManager.getConnection(url, user, password);
 		Statement stmt = con.createStatement();
-		
-		String query = "SELECT * FROM course";
-
-		rs = stmt.executeQuery(query);
-%>
-
-		 
-                 
-<%	
-                 int i = 1;
-		while(rs.next() ) {
-%>
-		   
-                    <tr>
-                        <td><%= i %></td>
-			<td><%= rs.getString("courseCode") %></td>
-                        <td><%= rs.getString("courseName") %></td>
-                        <td><%= rs.getString("category") %></td>
-		        <td><%= rs.getString("venue") %></td>
-                        <td><%= rs.getString("startDate") %></td>
-                        <td><%= rs.getString("finalDate") %></td>
-                        <td><%= rs.getString("time") %></td>
-                        <td><%= rs.getString("finalTime") %></td>
-                        <td><a href='editCourse.jsp?courseID=<%= rs.getString("courseCode") %>'>Edit</a></td>
-                        <td><a href='deleteCourse.jsp?courseID=<%= rs.getString("courseCode") %>'>Delete</a></td>
-                        
-		   </tr>
-                   
-<%
-		i++;
-                } 
                 
+               
+		//String idC = request.getParameter("idC");
+		 String query = "SELECT * FROM attendance INNER JOIN staff ON attendance.staffID = staff.staffID "
+                         + "INNER JOIN course ON attendance.courseCode = course.courseCode"
+                         
+                      ;
+		rs = stmt.executeQuery(query); 
+                
+               
+                int i=1;
+       
+      
+            while(rs.next()){
+                
+           
 %>
-<%
-	} catch (SQLException ex) {
-		System.err.println("SQLException: " + ex.getMessage() );
-	}  catch(Exception ex) {
-      System.err.println("Error with input: " + ex);
-    }
+		   <tr>
+                       
+                 
+                   
+                   <td><%= i %></td>
+			<td><%= rs.getString("staffID") %></td>
+		   
+			<td><%= rs.getString("name") %></td>
+                           
+                          <td><%= rs.getString("noIC") %></td> 
+                   
+                   <td><%= rs.getString("startDate") %></td> 
+                   <td><%= rs.getString("finalDate") %></td> 
+                   
+                     
+                   <td><a href="certificate2.jsp?staffID=<%= rs.getString("staffID")%>&name=<%= rs.getString("name")%>&noIC=<%= rs.getString("noIC")%>&startDate=<%= rs.getString("startDate")%>&finalDate=<%= rs.getString("finalDate")%>"/>Jana Sijil</a></td>
+                   
+                   
+                 
+               
+		   
+           
+		 
+<%                  
+            i++;
+            }    
+        
+	
 %>
 
-                           
-                                    
-                                    </tbody>
-                                </table>
+                </tr> </tbody>        
+                                </table>             
+              <%
+        }catch (SQLException ex) {
+		System.err.println("SQLException: " + ex.getMessage() );
+	}  
+        
+        
+%>
+
+
+                             </form>
                             </div>
                             <!-- /.table-responsive -->
+                           
+                           
                         </div>
+
                         <!-- /.panel-body -->
                     </div>
+
                     <!-- /.panel -->
                 </div>
             </div>
     </div>
      </div>
-</body>
+
+
+    </body>
 </html>
 <%@include file ="footer.jsp" %>

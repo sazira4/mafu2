@@ -1,5 +1,13 @@
 
-<%@ include file="header.jsp" %>
+<%@page import="java.io.*" %>
+
+<%@page import="java.sql.*" %>
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@include file = "admin_header.jsp" %>
+<%@include file = "mysqlconnect.jsp" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,15 +45,20 @@
 
 </head>
 <body>
+ 
+        
      <div id="wrapper">
     <div id="page-wrapper">
         <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Tables</h1>
+                    <h1 class="page-header">Record Attendance</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-    
+        
+      
+
+      
     <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
@@ -59,31 +72,63 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
+                                            <th>No</th>
+                                            <th>Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Start Date</th>
+                                            <th>Final Date</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        
+                                        <%
+
+	try {
+		//Connection con = DriverManager.getConnection(url, user, password);
+		Statement stmt = con.createStatement();
+		
+		String query = "SELECT * FROM course where startDate=curdate() OR finalDate>= curdate()";
+               
+		rs = stmt.executeQuery(query);
+%>
+
+             
+   
+<%	
+               
+              int i =1;
+            while (rs.next() ) {
+                
+%>
+
+		   <tr>
+                <td id="input1"><%= i %></td>
+			<td id="input1"><%= rs.getString("courseCode") %></td>
+		   
+			<td id="input2"><%= rs.getString("courseName") %></td>
+		  
+                        <td id="input3"><%=rs.getDate("startDate") %></td>
+                        <td id="input3"><%=rs.getDate("finalDate") %></td>
+                        <td><a href="recordDetails.jsp?courseCode=<%= rs.getString("courseCode") %>"/>Rekod Kehadiran</a></td>
+                        
+		   </tr>
+		 
+<%               i++;
+                
+                  
+		}
+%>
+<%
+	} catch (SQLException ex) {
+		System.err.println("SQLException: " + ex.getMessage() );
+	}  catch(Exception ex) {
+      System.err.println("Error with input: " + ex);
+    }
+%>
+
+                           
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -97,3 +142,4 @@
     </div>
 </body>
 </html>
+<%@include file ="footer.jsp" %>
