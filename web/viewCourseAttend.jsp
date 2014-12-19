@@ -4,9 +4,9 @@
     Author     : Dee Dee
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file = "staff_header.jsp" %>
-<%@include file = "mysqlconnect.jsp" %>
 
+<%@include file = "mysqlconnect.jsp" %>
+<%@include file = "staff_header.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,18 +48,16 @@
                                         <th class="hidden-phone"><i class="fa fa-question-circle"></i>Course Name</th>
                                         <th class="hidden-phone"><i class="fa fa-question-circle"></i>Start Date</th>
                                         <th class="hidden-phone"><i class="fa fa-question-circle"></i>End Date</th>
-                                        <th class="hidden-phone"><i class="fa fa-question-circle"></i>Time</th>
-                                        <th class="hidden-phone"><i class="fa fa-question-circle"></i>Venue</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                         <%      
         
-       // String username = request.getParameter("username");
-        String username = (String)session.getAttribute("username");
-        String sqlQuery = "SELECT * FROM penyertaan "+ 
-                "WHERE username='" + username+"'";
+        //String username = request.getParameter("username");
+       String username = (String)session.getAttribute("username");
+        String sqlQuery = "SELECT * FROM course "; 
+           //    "WHERE username='" + username+"'";
         
  
         queryStmt = con.createStatement();
@@ -74,8 +72,7 @@
                                         String courseName = rs.getString("courseName");
                                         String startDate = rs.getString("startDate");
                                         String finalDate = rs.getString("finalDate");
-                                        String time = rs.getString("time");
-                                        String venue = rs.getString("venue");
+ 
                                        // if (!userType.equals("staff")){
                               %>
                                           <tr>
@@ -86,8 +83,6 @@
                                                 <td class="hidden-phone"><%=courseName%></td>
                                                 <td class="hidden-phone"><%=startDate%></td>
                                                 <td class="hidden-phone"><%=finalDate%></td>
-                                                <td class="hidden-phone"><%=time%></td>
-                                                <td class="hidden-phone"><%=venue%></td> 
                                             </tr>  
                                    <% //  }else{
                                       //    index--;
