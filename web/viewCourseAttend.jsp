@@ -7,24 +7,7 @@
 <%@include file = "staff_header.jsp" %>
 <%@include file = "mysqlconnect.jsp" %>
 
-<%      
-        
-       // String username = request.getParameter("username");
-        String username = (String)session.getAttribute("username");
-        String sqlQuery = "SELECT * FROM penyertaan "+ 
-                "WHERE username='" + username+"'";
-        
-     //   String sqlQuery = "SELECT * FROM course "
-       //         + "JOIN infostaff ON infostaff.staffID=course.staffID" + 
-        //        "WHERE infostaff.username=" + username;
-     
-// "WHERE ((infostaff.username) LIKE" + "\"*\"" +username+ "\"*\""+")";          
-   // z e.g  WHERE (((InstDegreeProgram.Program) Like " + "\"*\"" + input2 + "\"*\""+"))"
-       // +"ORDER BY InstDegreeProgram.Program";
-        queryStmt = con.createStatement();
-        rs = queryStmt.executeQuery(sqlQuery);
-        
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,6 +54,18 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                        <%      
+        
+       // String username = request.getParameter("username");
+        String username = (String)session.getAttribute("username");
+        String sqlQuery = "SELECT * FROM penyertaan "+ 
+                "WHERE username='" + username+"'";
+        
+ 
+        queryStmt = con.createStatement();
+        rs = queryStmt.executeQuery(sqlQuery);
+        
+%>
                               <% int index = 0;
                                       while (rs.next()){
                                         index++;
