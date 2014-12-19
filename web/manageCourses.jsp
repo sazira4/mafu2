@@ -1,6 +1,6 @@
 
 <%@ page import="java.sql.*" %>
-<%@ include file="header.jsp" %>
+<%@ include file="admin_header.jsp" %>
 <%@include file = "mysqlconnect.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +36,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
 
 </head>
 <body>
@@ -49,7 +51,7 @@
          </div>
         <div class="row">
             <div class="col-lg-offset-10">
-                <h5> <a href="addCourse.jsp">Add Courses</a></h5>
+                <h5> <a href="addCourses.jsp">Add Courses</a></h5>
             </div>
         </div>
         
@@ -75,6 +77,8 @@
                                             <th>Venue</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,10 +105,15 @@
                         <td><%= i %></td>
 			<td><%= rs.getString("courseCode") %></td>
                         <td><%= rs.getString("courseName") %></td>
+                        <td><%= rs.getString("category") %></td>
 		        <td><%= rs.getString("venue") %></td>
-                        <td><%= rs.getDate("startDate") %></td>
-                        <td><%= rs.getDate("finalDate") %></td>
-                        <td><a href='editCourse.jsp?courseID=<%= rs.getString("idC") %>'>Edit</a></td>
+                        <td><%= rs.getString("startDate") %></td>
+                        <td><%= rs.getString("finalDate") %></td>
+                        <td><%= rs.getString("time") %></td>
+                        <td><%= rs.getString("finalTime") %></td>
+                        <td><a href='editCourse.jsp?courseID=<%= rs.getString("courseCode") %>'>Edit</a></td>
+                        <td><a href='deleteCourse.jsp?courseID=<%= rs.getString("courseCode") %>'>Delete</a></td>
+                        
 		   </tr>
                    
 <%

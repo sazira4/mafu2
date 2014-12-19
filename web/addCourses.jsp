@@ -1,5 +1,5 @@
 
-<%@ include file="header.jsp" %>
+<%@ include file="admin_header.jsp" %>
 <%@include file = "mysqlconnect.jsp" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -101,6 +101,12 @@
                                         <label>Venue</label>
                                         <input class="form-control" placeholder="Enter text" name="venue">
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Category</label>
+                                        <input class="form-control" placeholder="Enter text" name="category">
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <label>Start Date</label>
                                         <input type="text" id="departing" class="form-control" placeholder="Select Date" name="startDate">
@@ -108,6 +114,18 @@
                                     <div class="form-group">
                                         <label>End Date</label>
                                         <input type="text" id="returning" class="form-control" placeholder="Select Date" name="finalDate">
+
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Start Time</label>
+                                        <input type="text" class="form-control" placeholder="ex: 08:00:00" name="time">
+
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>End Time</label>
+                                        <input type="text" class="form-control" placeholder="ex: 13:00:00" name="finalTime">
 
                                     </div>
                                     <div class="col-lg-offset-9">
@@ -126,48 +144,22 @@
                 </div>
             </div>
         </div>
-        <%      String name = request.getParameter("courseName");
+        <%     
+            String name = request.getParameter("courseName");
             String code = request.getParameter("courseCode");
-            String venue = request.getParameter("venue");            
+            String venue = request.getParameter("venue"); 
+            String category = request.getParameter("category");
             
-            /*String startD = request.getParameter("startDate");  
+            String startD = request.getParameter("startDate");  
             String finalD = request.getParameter("finalDate");
             
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date dS = df.parse(startD);
-            Date dF = df.parse(finalD);
-            out.println(dS);
-            out.println(dF);
-            */
-
-            /*
-            
-            java.util.Date util_StartDate = df.parse(startD);
-            java.sql.Date sql_StartDate = new java.sql.Date( util_StartDate.getTime() );
+            String startTime = request.getParameter("time");
+            String finalTime = request.getParameter("finalTime");
             
           
-           
-            SimpleDateFormat reFormat = new SimpleDateFormat("mm-dd-yyyy");
-           // java.util.Date sDate = reFormat.parse(request.getParameter("startDate"));
-           //java.sql.Date sqlDate = new java.sql.Date(sDate.getTime());
-            
-          
-            
-             java.util.Date fDate = reFormat.parse(request.getParameter("finalDate"));
-            java.sql.Date sqlDateF = new java.sql.Date(fDate.getTime());
-            
-            
-            
-            
-            java.util.Date util_FinalDate = df.parse(finalD);
-            java.sql.Date sql_FinalDate = new java.sql.Date( util_FinalDate.getTime() );
-            */
-            
-            
-            
-            
-            //if (name != null && code != null && venue != null && startD!= null && finalD != null)
-            if (name != null && code != null && venue != null) {
+              
+            //if (name != null && code != null && venue != null && startD!= null && finalD != null && startTime!= null && finalTime != null){
+            //if (name != null && code != null && venue != null) {
                 //Connection con = DriverManager.getConnection(url,user,password);
                 PreparedStatement courseInfo = null;
                 int updateQuery = 0;
@@ -175,28 +167,33 @@
                     Class.forName(driverName);
                     //con = DriverManager.getConnection(url,user,psw);
                        
-                     //String queryString = "INSERT INTO course(courseCode, venue, courseName, startDate, finalDate) VALUES (?, ?, ?, ?, ?)";
-                    String queryString = "INSERT INTO course(courseCode, venue, courseName) VALUES (?, ?, ?)";
+                     //String queryString = "INSERT INTO course(courseCode, venue, courseName) VALUES (?, ?, ?)";
+                    String queryString = "INSERT INTO course(courseCode, category, venue, time,courseName, finalTime, startDate, finalDate) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
                     /* createStatement() is used for create statement object that is used for  sending sql statements to the specified database. */
                     courseInfo = con.prepareStatement(queryString);
                     courseInfo.setString(1, code);
-                    courseInfo.setString(2, venue);
-                    courseInfo.setString(3, name);
-                    //courseInfo.setDate(4, sd );
-                    //courseInfo.setDate(5, fd );
+                    courseInfo.setString(2, category);
+                    courseInfo.setString(3, venue);
+                    
+                   //courseInfo.setDate(4, dt );
+                    //courseInfo.setDate(5, dF );
                    // courseInfo.setDate(4, sql_StartDate );
                     //courseInfo.setDate(5, sql_FinalDate );
-                    //courseInfo.setString(4, startD);
-                    //courseInfo.setString(5, finalD);
-
+                    courseInfo.setString(4, startTime);
+                    courseInfo.setString(5, name);
+                    courseInfo.setString(6,finalTime);
+                    courseInfo.setString(7, startD);
+                    courseInfo.setString(8, finalD);
+                       
                     int i = courseInfo.executeUpdate();
                     if (i > 0) {
+                        
         %>
         <jsp:forward page="manageCourses.jsp"/>
         <%
         } else {
         %>
-        <jsp:forward page="addCourses.jsp"/>
+        <jsp:forward page="manageCourses.jsp"/>
         <%
                     }
 
@@ -204,7 +201,7 @@
                     request.setAttribute("error", sqe);
                     out.println(sqe);
                 }
-            }
+           // }
         %>
 
 
